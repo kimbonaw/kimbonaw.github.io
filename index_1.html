@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>보나 · AI Engineer</title>
+<meta name="description" content="AI 엔지니어 보나의 포트폴리오 — 생성형 모델 파인튜닝, AI 서비스 개발·배포, 파이프라인 설계">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBFBFA;
+  --surface:#FFFFFF;
+  --ink:#22282E;
+  --sub:#5C666F;
+  --faint:#98A1A9;
+  --accent:#39618E;
+  --accent-soft:#EEF3F8;
+  --line:#E8EAEC;
+  --serif:'Noto Serif KR',serif;
+  --sans:'Pretendard Variable',Pretendard,-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1!important;transform:none!important;transition:none!important}
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{opacity:.75}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.wrap{max-width:820px;margin:0 auto;padding:0 28px}
+
+/* ---------- nav ---------- */
+header{position:sticky;top:0;z-index:10;background:rgba(251,251,250,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;justify-content:space-between;align-items:center;height:58px}
+.nav .logo{font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;color:var(--ink)}
+.nav ul{display:flex;gap:26px;list-style:none}
+.nav ul a{font-size:13.5px;color:var(--sub)}
+.nav ul a:hover{color:var(--ink);opacity:1}
+@media(max-width:600px){.nav ul{gap:16px}.nav ul li:nth-child(n+4){display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:110px 0 84px}
+.hero .hello{font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;color:var(--accent);margin-bottom:26px}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(28px,4.6vw,40px);line-height:1.5;letter-spacing:-.01em}
+.hero .lede{margin-top:26px;max-width:600px;color:var(--sub);font-size:16.5px}
+.hero .facts{margin-top:44px;display:flex;flex-wrap:wrap;gap:0}
+.hero .facts div{padding:0 28px;border-left:1px solid var(--line)}
+.hero .facts div:first-child{padding-left:0;border-left:none}
+.hero .facts b{display:block;font-size:15px;font-weight:600;color:var(--ink)}
+.hero .facts span{font-size:12.5px;color:var(--faint)}
+@media(max-width:640px){
+  .hero{padding:72px 0 60px}
+  .hero .facts{display:grid;grid-template-columns:1fr 1fr;gap:18px 0}
+  .hero .facts div{border-left:none;padding:0}
+}
+
+/* ---------- pipeline ---------- */
+.pipeline{padding:0 0 90px}
+.pipeline .cap{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--faint);margin-bottom:30px}
+.p-track{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+.p-track::before{content:"";position:absolute;top:5px;left:12.5%;right:12.5%;height:1px;background:var(--line)}
+.p-stage{padding:0 18px 0 0;position:relative}
+.p-stage .dot{width:11px;height:11px;border-radius:50%;background:var(--bg);border:2.5px solid var(--accent);margin-bottom:16px;position:relative;z-index:1}
+.p-stage h3{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.1em;color:var(--ink);margin-bottom:8px}
+.p-stage p{font-size:13.5px;color:var(--sub);line-height:1.65}
+@media(max-width:680px){
+  .p-track{grid-template-columns:1fr;gap:24px}
+  .p-track::before{display:none}
+  .p-stage{display:grid;grid-template-columns:11px 1fr;column-gap:16px;padding:0}
+  .p-stage .dot{margin:7px 0 0;grid-row:1/3}
+}
+
+/* ---------- sections ---------- */
+section{padding:84px 0}
+section+section{border-top:1px solid var(--line)}
+.sec-head{margin-bottom:44px}
+.sec-head .label{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--faint);display:block;margin-bottom:10px}
+.sec-head h2{font-family:var(--serif);font-size:clamp(21px,3vw,26px);font-weight:600;letter-spacing:-.01em}
+
+/* entry (list style, no heavy cards) */
+.entry{display:grid;grid-template-columns:150px 1fr;gap:28px;padding:34px 0;border-top:1px solid var(--line)}
+.entry:first-of-type{border-top:none;padding-top:0}
+.entry .when{font-family:var(--mono);font-size:12px;color:var(--faint);line-height:1.9;padding-top:4px}
+.entry .when b{display:block;font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--accent);letter-spacing:0}
+.entry h3{font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
+.entry h3 .role{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--accent);background:var(--accent-soft);border-radius:4px;padding:3px 8px;vertical-align:3px;margin-left:10px;font-weight:500}
+.entry .desc{color:var(--sub);font-size:15px;margin-bottom:8px}
+.entry ul{list-style:none;margin-top:12px}
+.entry ul li{position:relative;padding-left:16px;color:var(--sub);font-size:14px;margin-bottom:7px;line-height:1.7}
+.entry ul li::before{content:"";position:absolute;left:0;top:11px;width:5px;height:1.5px;background:var(--accent)}
+.metrics{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+.metrics span{font-family:var(--mono);font-size:12px;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:3px 10px}
+.tags{margin-top:14px;font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.02em}
+@media(max-width:640px){
+  .entry{grid-template-columns:1fr;gap:10px;padding:28px 0}
+}
+
+/* pubs */
+.pub{padding:22px 0;border-top:1px solid var(--line)}
+.pub:first-of-type{border-top:none;padding-top:0}
+.pub .type{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--faint);margin-bottom:6px}
+.pub .type em{font-style:normal;color:var(--accent)}
+.pub h4{font-size:15px;font-weight:600;line-height:1.55;margin-bottom:4px}
+.pub p{font-size:13.5px;color:var(--sub)}
+
+/* skills */
+.skill{display:grid;grid-template-columns:150px 1fr;gap:28px;padding:16px 0;border-top:1px solid var(--line);align-items:baseline}
+.skill:first-of-type{border-top:none;padding-top:0}
+.skill .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--accent)}
+.skill .v{font-size:14.5px;color:var(--sub)}
+@media(max-width:560px){.skill{grid-template-columns:1fr;gap:4px}}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:76px 0 96px}
+footer h2{font-family:var(--serif);font-size:22px;font-weight:600;margin-bottom:16px}
+footer p{color:var(--sub);font-size:15px}
+footer .links{margin-top:26px;font-family:var(--mono);font-size:13.5px;display:flex;flex-wrap:wrap;gap:8px 34px}
+footer .note{margin-top:56px;font-size:12px;color:var(--faint)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s ease}
+.reveal.on{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top">BONA</a>
+    <ul>
+      <li><a href="#exp">경력</a></li>
+      <li><a href="#proj">프로젝트</a></li>
+      <li><a href="#research">연구</a></li>
+      <li><a href="#skills">기술</a></li>
+      <li><a href="#contact">연락처</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= hero ================= -->
+<div class="wrap hero">
+  <p class="hello">AI ENGINEER</p>
+  <h1>안녕하세요, 보나입니다.<br>모델 학습부터 배포·운영까지 만듭니다.</h1>
+  <p class="lede">
+    생성형 모델 파인튜닝, Docker·AWS 학습 환경 구성, FastAPI 기반 서비스 개발과 운영,
+    LLM Agent 파이프라인 설계를 해왔습니다. 만든 모델이 실제 환경에서
+    안정적으로 동작하는 일에 관심이 많습니다.
+  </p>
+  <div class="facts">
+    <div><b>AI 융합 석사</b><span>DEGREE</span></div>
+    <div><b>특허 2건 출원</b><span>국내 + PCT</span></div>
+    <div><b>IEEE 저널 투고</b><span>1저자 · TETC</span></div>
+    <div><b>Clarity 2025 6위</b><span>국제 챌린지</span></div>
+  </div>
+</div>
+
+<!-- ================= pipeline ================= -->
+<div class="wrap pipeline reveal">
+  <p class="cap">WHAT I DO</p>
+  <div class="p-track">
+    <div class="p-stage">
+      <div class="dot"></div>
+      <h3>DATA</h3>
+      <p>제조·고객 데이터 분석, 정제와 검증, 파생변수 설계</p>
+    </div>
+    <div class="p-stage">
+      <div class="dot"></div>
+      <h3>TRAIN</h3>
+      <p>Stable Diffusion·LTX-Video LoRA 파인튜닝</p>
+    </div>
+    <div class="p-stage">
+      <div class="dot"></div>
+      <h3>DEPLOY</h3>
+      <p>Docker·AWS 환경 구성, FastAPI·React 서비스 배포</p>
+    </div>
+    <div class="p-stage">
+      <div class="dot"></div>
+      <h3>OPERATE</h3>
+      <p>모니터링·알람·로그, LLM 기반 자동 품질 검증</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= experience ================= -->
+<section id="exp">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">EXPERIENCE</span><h2>경력</h2></div>
+
+    <div class="entry reveal">
+      <div class="when"><b>도스트11</b>2025.09 – 2025.12<br>한국전파진흥협회</div>
+      <div>
+        <h3>생성형 이미지·비디오 모델 파인튜닝 및 최적화</h3>
+        <p class="desc">한국어·한국 문화 이해도가 낮은 생성 모델의 성능을 개선하는 프로젝트를 수행했습니다.</p>
+        <ul>
+          <li>한국 문화 데이터셋 정제·구조화, 한국어 텍스트 인코더 적용 및 LoRA 파인튜닝</li>
+          <li>LLM 기반 프롬프트 엔지니어링으로 생성 품질 최적화</li>
+          <li>Docker·AWS 기반 학습/배포 환경 구성으로 재현성 확보</li>
+        </ul>
+        <div class="metrics"><span>CLIPScore 0.31 → 0.47</span><span>FID −17%</span><span>FVD −9%</span></div>
+        <p class="tags">Python · PyTorch · LoRA · Docker · AWS</p>
+      </div>
+    </div>
+
+    <div class="entry reveal">
+      <div class="when"><b>CNSI</b>2022.10 – 2023.07</div>
+      <div>
+        <h3>AI 영상 분석 웹 플랫폼 개발·배포·운영</h3>
+        <p class="desc">드론 영상 기반 수심 측정 자동화 플랫폼과 실시간 AI 영상 분석 관제 플랫폼, 두 서비스를 개발하고 배포했습니다.</p>
+        <ul>
+          <li>FastAPI·React 기반 웹 시스템 구현, AI 모델 결과의 실시간 API 연동 구조 설계</li>
+          <li>사용자 인증·권한 관리, 알람·이벤트·로그·백업 기능 개발</li>
+          <li>수작업 측정 프로세스를 웹 기반 자동화 구조로 전환, IoT 전시회 현장 시연으로 운영 안정성 검증</li>
+        </ul>
+        <p class="tags">Python · FastAPI · React · JavaScript · Docker</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= projects ================= -->
+<section id="proj">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">PROJECTS</span><h2>프로젝트</h2></div>
+
+    <div class="entry reveal">
+      <div class="when"><b>포스코 AI·BigData 아카데미</b>2026.05 – 2026.07</div>
+      <div>
+        <h3>산업 현장 암묵지 DB 구축 및 검증 프레임워크<span class="role">TEAM LEADER</span></h3>
+        <p class="desc">스마트 글래스 영상·음성 데이터로 숙련자의 노하우를 추출·검증·검색하는 멀티모달 Agent AI 파이프라인을 설계했습니다.</p>
+        <ul>
+          <li>VLM(Qwen2.5-VL) 행동 인식, YOLO 객체 검출, Whisper STT를 결합한 멀티모달 분석</li>
+          <li>LangGraph 조건 분기 기반 자동 품질 검증 — 규칙 필터와 LLM Judge를 비용순으로 배치해 처리 비용 절감</li>
+          <li>검증 통과 데이터를 Qdrant Vector DB에 적재하고 RAG 기반 음성 질의응답 시스템 구축</li>
+        </ul>
+        <p class="tags">LangChain · LangGraph · RAG · Qdrant · Qwen2.5-VL · YOLO · Whisper</p>
+      </div>
+    </div>
+
+    <div class="entry reveal">
+      <div class="when"><b>데이터 분석</b>2026.05 – 2026.06</div>
+      <div>
+        <h3>제조 공정 불량 예측 및 요인 분석</h3>
+        <p class="desc">후판·스테인리스강 공정 데이터 23,000여 건을 분석해 불량의 핵심 공정 변수를 도출하고 관리 기준을 제안했습니다.</p>
+        <ul>
+          <li>IQR·도메인 기반 이상치 처리, VIF 다중공선성 검증, 파생변수 설계</li>
+          <li>7개 모델 비교 후 Feature Importance 기반 핵심 인자 도출</li>
+        </ul>
+        <p class="tags">Scikit-learn · XGBoost · LightGBM · 통계 검정</p>
+      </div>
+    </div>
+
+    <div class="entry reveal">
+      <div class="when"><b>데이터 분석</b>2026.05 – 2026.06</div>
+      <div>
+        <h3>고객 세분화 기반 매출 증대 전략</h3>
+        <p class="desc">회원 11,555명, 거래 294,645건을 분석해 이탈 예측 모델을 구축하고 RFM 등급을 재설계했습니다.</p>
+        <ul>
+          <li>이탈 예측 Random Forest 모델, AUC 0.9339</li>
+          <li>KPI 정의와 가설 검정 기반 CRM 전략 수립</li>
+        </ul>
+        <p class="tags">SQL · RFM · K-Means · Apriori</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= research ================= -->
+<section id="research">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">RESEARCH</span><h2>연구 · 논문 · 특허</h2></div>
+
+    <div class="entry reveal">
+      <div class="when"><b>석사 연구</b>2024.03 – 2025.12<br>한국연구재단</div>
+      <div>
+        <h3>생성 모델의 데이터 유출·암기 현상 분석</h3>
+        <p class="desc">TTS·LLM·오디오 생성 모델이 학습 데이터를 기억하고 유출하는 현상을 정량 분석하고, 탐지와 방어 기법을 설계했습니다.</p>
+        <ul>
+          <li>음소 duration 기반 TTS 멤버십 추론 — 인코더 정보만으로 추론해 약 100배 속도 향상, 정확도 평균 10% 개선</li>
+          <li>LLM 학습 데이터 추출·멤버십 추론 통합 프레임워크(TDE-MIA) — API 환경에서 동작하는 평가 기법 설계</li>
+          <li>Differential Privacy 기반 방어 기법 적용·분석</li>
+        </ul>
+        <div class="metrics"><span>특허 국내 1건 + PCT 1건</span><span>IEEE TETC·TIFS 투고</span></div>
+      </div>
+    </div>
+
+    <div class="entry reveal">
+      <div class="when"><b>Publications</b></div>
+      <div>
+        <div class="pub">
+          <p class="type"><em>1저자</em> · IEEE TETC · UNDER REVIEW</p>
+          <h4>DurMI: Duration Discrepancy as a Membership Signal in TTS Models</h4>
+          <p>아키텍처 비종속 TTS 멤버십 추론 방법론</p>
+        </div>
+        <div class="pub">
+          <p class="type"><em>1저자</em> · CISC-W'24</p>
+          <h4>Mechanisms of Data Replication in Audio Generation Using Latent Diffusion Models</h4>
+          <p>오디오 생성 모델의 학습 데이터 복제 메커니즘 분석</p>
+        </div>
+        <div class="pub">
+          <p class="type">공동저자 · IEEE TIFS · UNDER REVIEW</p>
+          <h4>TDE-MIA: A Two-Stage Attack for Training Data Extraction and Membership Inference in GPT Models</h4>
+          <p>GPT 계열 모델의 학습 데이터 유출 탐지 프레임워크</p>
+        </div>
+        <div class="pub">
+          <p class="type">공동저자 · Clarity 2025 · 전체 6위</p>
+          <h4>Domain-Adapted ASR with Deep Neural Networks for Enhanced Speech Intelligibility Prediction</h4>
+          <p>Whisper 도메인 적응 기반 음성 명료도 예측</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= skills ================= -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">SKILLS</span><h2>기술</h2></div>
+    <div class="reveal">
+      <div class="skill"><span class="k">LANGUAGE</span><span class="v">Python, JavaScript, SQL</span></div>
+      <div class="skill"><span class="k">ML / DL</span><span class="v">PyTorch, Scikit-learn, XGBoost, LightGBM, LoRA Fine-tuning, Hugging Face Transformers</span></div>
+      <div class="skill"><span class="k">LLM / AGENT</span><span class="v">LangChain, LangGraph, RAG, Qdrant, Prompt Engineering</span></div>
+      <div class="skill"><span class="k">VISION / SPEECH</span><span class="v">Qwen2.5-VL, YOLO, OpenCV, Whisper, Librosa, torchaudio</span></div>
+      <div class="skill"><span class="k">SERVING / INFRA</span><span class="v">FastAPI, React, Docker, AWS, Linux</span></div>
+      <div class="skill"><span class="k">ETC</span><span class="v">ADsP, OPIc IH</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= contact ================= -->
+<footer id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p>포트폴리오를 봐주셔서 감사합니다. 아래로 연락 주시면 빠르게 답변드리겠습니다.</p>
+    <div class="links">
+      <span>EMAIL — <a href="mailto:YOUR_EMAIL@example.com">YOUR_EMAIL@example.com</a></span>
+      <span>GITHUB — <a href="https://github.com/YOUR_ID" target="_blank" rel="noopener">github.com/YOUR_ID</a></span>
+    </div>
+    <p class="note">© 2026 Bona · 본 페이지의 프로젝트 내용은 공개 가능한 범위 내에서 작성되었습니다.</p>
+  </div>
+</footer>
+
+</main>
+
+<script>
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
