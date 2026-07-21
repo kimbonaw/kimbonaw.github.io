@@ -3,27 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>보나 · AI Engineer</title>
-<meta name="description" content="AI 엔지니어 김보나의 포트폴리오 — 생성형 모델 파인튜닝, AI 서비스 개발·배포, 파이프라인 설계">
-<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<title>김보나 · AI Engineer</title>
+<meta name="description" content="AI 엔지니어 김보나 포트폴리오 — Agent·RAG 파이프라인, 생성형 모델 파인튜닝, 음성 AI, AI 서비스 개발·배포">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --space:#070B16;
-  --space-2:#0B1222;
-  --ink:#E9EEF7;
-  --sub:#9FABC2;
-  --faint:#5E6B85;
-  --line:rgba(159,171,194,.14);
-  --glass:rgba(255,255,255,.035);
-  --glass-line:rgba(255,255,255,.09);
-  --star:#BFD3FF;
-  --aur-a:#7DD3FC;   /* ice blue   */
-  --aur-b:#A78BFA;   /* violet     */
-  --aur-c:#5EEAD4;   /* teal glow  */
+  --paper:#F4F5F2;
+  --card:#FFFFFF;
+  --ink:#101314;
+  --body:#3D4448;
+  --mute:#7C858A;
+  --rule:#E0E2DC;
+  --rule-2:#EDEEE9;
+  --pine:#1B5E4B;
+  --pine-soft:#E7EFEB;
+  --amber:#B4762A;
   --sans:'Pretendard Variable',Pretendard,-apple-system,sans-serif;
-  --disp:'Space Grotesk','Pretendard Variable',sans-serif;
+  --disp:'Bricolage Grotesque','Pretendard Variable',sans-serif;
   --mono:'IBM Plex Mono',monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -31,480 +30,655 @@ html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .reveal{opacity:1!important;transform:none!important}
+  .rv{opacity:1!important;transform:none!important}
 }
-body{
-  background:var(--space);
-  color:var(--ink);
-  font-family:var(--sans);
-  font-size:16px;line-height:1.75;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-}
-/* nebula wash */
-body::before{
-  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
-  background:
-    radial-gradient(900px 600px at 85% -5%, rgba(124,58,237,.16), transparent 62%),
-    radial-gradient(800px 560px at -10% 22%, rgba(56,189,248,.11), transparent 60%),
-    radial-gradient(700px 700px at 60% 115%, rgba(94,234,212,.08), transparent 60%),
-    linear-gradient(180deg,var(--space) 0%,var(--space-2) 100%);
-}
-#stars{position:fixed;inset:0;z-index:-1;pointer-events:none}
-a{color:var(--aur-a);text-decoration:none}
-a:hover{color:#BAE6FD}
-a:focus-visible{outline:2px solid var(--aur-a);outline-offset:3px;border-radius:2px}
-.wrap{max-width:860px;margin:0 auto;padding:0 28px}
+body{background:var(--paper);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:var(--pine);text-decoration:none;border-bottom:1px solid rgba(27,94,75,.3)}
+a:hover{border-bottom-color:var(--pine)}
+a:focus-visible{outline:2px solid var(--pine);outline-offset:3px;border-radius:2px}
+.wrap{max-width:920px;margin:0 auto;padding:0 32px}
+@media(max-width:640px){.wrap{padding:0 20px}}
 
-/* ---------- nav ---------- */
-header{position:sticky;top:0;z-index:20;background:rgba(7,11,22,.72);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav{display:flex;justify-content:space-between;align-items:center;height:60px}
-.nav .logo{font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;color:var(--ink)}
-.nav .logo i{font-style:normal;color:var(--aur-c)}
-.nav ul{display:flex;gap:26px;list-style:none}
-.nav ul a{font-size:13.5px;color:var(--sub)}
-.nav ul a:hover{color:var(--ink)}
-@media(max-width:600px){.nav ul{gap:15px}.nav ul li:nth-child(n+4){display:none}}
+/* nav */
+.top{position:sticky;top:0;z-index:30;background:rgba(244,245,242,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:24px;height:60px}
+.brand{font-family:var(--disp);font-size:16px;font-weight:700;letter-spacing:-.01em;color:var(--ink);border:none;white-space:nowrap;flex:none}
+.menu{display:flex;align-items:center;gap:24px;list-style:none;min-width:0;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+.menu::-webkit-scrollbar{display:none}
+.menu li{flex:none}
+.menu a{position:relative;font-size:13.5px;color:var(--mute);border:none;white-space:nowrap;display:block;padding:2px 0;transition:color .2s ease}
+.menu a:hover{color:var(--ink)}
+.menu a.active{color:var(--pine);font-weight:600}
+.menu a.active::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:var(--pine);border-radius:2px}
+.sec,#top{scroll-margin-top:72px}
+#prog{position:absolute;left:0;bottom:-1px;height:2px;background:var(--pine);width:0}
+@media(max-width:700px){.bar{gap:14px;height:56px}.brand{font-size:15px}.menu{gap:16px}.menu a{font-size:12.5px}}
 
-/* ---------- hero ---------- */
-.hero{position:relative;padding:120px 0 96px;overflow:visible}
-.hero .hello{font-family:var(--mono);font-size:12.5px;letter-spacing:.2em;color:var(--aur-c);margin-bottom:26px}
-.hero h1{
-  font-family:var(--disp);font-weight:600;
-  font-size:clamp(30px,5.2vw,46px);line-height:1.42;letter-spacing:-.01em;
-}
-.hero h1 .grad{
-  background:linear-gradient(92deg,var(--aur-a) 0%,var(--aur-b) 55%,var(--aur-c) 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.hero .lede{margin-top:26px;max-width:580px;color:var(--sub);font-size:16.5px}
-.hero .facts{margin-top:48px;display:flex;flex-wrap:wrap}
-.hero .facts div{padding:0 30px;border-left:1px solid var(--line)}
-.hero .facts div:first-child{padding-left:0;border-left:none}
-.hero .facts b{display:block;font-size:15px;font-weight:600;color:var(--ink)}
-.hero .facts span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint)}
-@media(max-width:640px){
-  .hero{padding:76px 0 64px}
-  .hero .facts{display:grid;grid-template-columns:1fr 1fr;gap:20px 0}
-  .hero .facts div{border-left:none;padding:0}
-}
+/* hero */
+.hero{padding:100px 0 68px;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;color:var(--pine);margin-bottom:26px}
+.hero h1{font-family:var(--disp);font-weight:700;color:var(--ink);font-size:clamp(30px,4.9vw,46px);line-height:1.3;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--pine)}
+.hero .lede{margin-top:26px;max-width:640px;font-size:16.5px}
+.proof{margin-top:46px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.proof div{background:var(--paper);padding:18px 20px}
+.proof b{display:block;font-family:var(--disp);font-size:15.5px;font-weight:700;color:var(--ink);letter-spacing:-.01em;line-height:1.45}
+.proof span{display:block;margin-top:8px;font-family:var(--mono);font-size:10px;letter-spacing:.09em;color:var(--mute);line-height:1.65}
+@media(max-width:760px){.proof{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.hero{padding:60px 0 48px}}
 
-/* ---------- 3D planet ---------- */
-.planet-wrap{
-  position:absolute;top:36px;right:-40px;width:300px;height:300px;
-  perspective:900px;pointer-events:none;z-index:-1;
-}
-.planet{
-  position:absolute;inset:40px;border-radius:50%;
-  background:
-    radial-gradient(circle at 32% 28%, #C7D9FF 0%, #7FA0E8 18%, #4C5FC4 42%, #2A2E7A 68%, #12143F 100%);
-  box-shadow:
-    inset -26px -22px 60px rgba(0,0,10,.75),
-    inset 10px 10px 40px rgba(255,255,255,.14),
-    0 0 70px rgba(122,140,255,.28),
-    0 0 160px rgba(94,234,212,.10);
-  animation:float 9s ease-in-out infinite;
-}
-.orbit{
-  position:absolute;inset:-6px;border-radius:50%;
-  border:1px solid rgba(167,139,250,.35);
-  transform:rotateX(72deg) rotateZ(-14deg);
-  animation:spin 22s linear infinite;
-}
-.orbit::after{
-  content:"";position:absolute;top:50%;left:-4px;width:8px;height:8px;border-radius:50%;
-  background:var(--aur-c);box-shadow:0 0 12px var(--aur-c),0 0 26px rgba(94,234,212,.6);
-}
-.orbit.o2{inset:-34px;border-color:rgba(125,211,252,.18);animation-duration:38s;animation-direction:reverse}
-.orbit.o2::after{background:var(--aur-a);box-shadow:0 0 10px var(--aur-a)}
-@keyframes spin{to{transform:rotateX(72deg) rotateZ(346deg)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-@media(max-width:860px){.planet-wrap{width:210px;height:210px;top:16px;right:-60px;opacity:.55}}
-@media(max-width:560px){.planet-wrap{display:none}}
+/* section */
+.sec{padding:74px 0;border-bottom:1px solid var(--rule)}
+.head{margin-bottom:38px}
+.head .tag{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--mute);display:block;margin-bottom:12px}
+.head h2{font-family:var(--disp);font-size:clamp(22px,3.2vw,30px);font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1.3}
+.head p{margin-top:12px;max-width:640px;font-size:15px;color:var(--body)}
 
-/* ---------- pipeline ---------- */
-.pipeline{padding:0 0 96px}
-.pipeline .cap{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;color:var(--faint);margin-bottom:34px}
-.p-track{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
-.p-track::before{
-  content:"";position:absolute;top:6px;left:12.5%;right:12.5%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(125,211,252,.45),rgba(167,139,250,.45),transparent);
-}
-.p-stage{padding-right:20px;position:relative}
-.p-stage .dot{
-  width:13px;height:13px;border-radius:50%;margin-bottom:16px;position:relative;z-index:1;
-  background:radial-gradient(circle at 34% 30%,#DFF3FF 0%,var(--aur-a) 45%,#1E3A5F 100%);
-  box-shadow:0 0 12px rgba(125,211,252,.55);
-}
-.p-stage:nth-child(2) .dot{background:radial-gradient(circle at 34% 30%,#EFE6FF 0%,var(--aur-b) 45%,#3B2A6E 100%);box-shadow:0 0 12px rgba(167,139,250,.55)}
-.p-stage:nth-child(3) .dot{background:radial-gradient(circle at 34% 30%,#E2FFF8 0%,var(--aur-c) 45%,#0F4A40 100%);box-shadow:0 0 12px rgba(94,234,212,.5)}
-.p-stage:nth-child(4) .dot{background:radial-gradient(circle at 34% 30%,#FFF3E0 0%,#FBBF77 45%,#7A4A12 100%);box-shadow:0 0 12px rgba(251,191,119,.5)}
-.p-stage h3{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.14em;color:var(--ink);margin-bottom:8px}
-.p-stage p{font-size:13.5px;color:var(--sub);line-height:1.65}
-@media(max-width:680px){
-  .p-track{grid-template-columns:1fr;gap:26px}
-  .p-track::before{display:none}
-  .p-stage{display:grid;grid-template-columns:13px 1fr;column-gap:16px;padding:0}
-  .p-stage .dot{margin:7px 0 0;grid-row:1/3}
-}
+/* filter */
+.filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;padding:7px 14px;border:1px solid var(--rule);background:transparent;color:var(--mute);border-radius:100px;cursor:pointer;transition:all .18s ease}
+.chip:hover{border-color:var(--pine);color:var(--pine)}
+.chip[aria-pressed="true"]{background:var(--pine);border-color:var(--pine);color:#fff}
+.chip:focus-visible{outline:2px solid var(--pine);outline-offset:2px}
 
-/* ---------- sections ---------- */
-section{padding:88px 0;border-top:1px solid var(--line)}
-.sec-head{margin-bottom:46px}
-.sec-head .label{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;color:var(--aur-c);display:block;margin-bottom:10px}
-.sec-head h2{font-family:var(--disp);font-size:clamp(22px,3vw,27px);font-weight:600;letter-spacing:-.01em}
+/* card */
+.card{background:var(--card);border:1px solid var(--rule);padding:32px 34px;margin-bottom:16px}
+.card.hide{display:none}
+.card > header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--rule-2);margin-bottom:22px}
+.card > header > div{min-width:0;flex:1 1 320px}
+.card .ttl{font-family:var(--disp);font-size:20px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1.4}
+.card .org{margin-top:8px;font-family:var(--mono);font-size:11.5px;color:var(--mute);letter-spacing:.02em;line-height:1.6}
+.badges{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}
+.badges span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;padding:4px 9px;border:1px solid var(--rule);color:var(--mute)}
+.badges .key{color:var(--pine);background:var(--pine-soft);border-color:transparent}
+.card .yr{font-family:var(--mono);font-size:11.5px;color:var(--mute);white-space:nowrap;padding-top:6px;flex:none}
 
-/* entries */
-.entry{
-  display:grid;grid-template-columns:158px 1fr;gap:30px;
-  padding:32px 30px;margin-bottom:18px;border-radius:14px;
-  background:var(--glass);border:1px solid var(--glass-line);
-  backdrop-filter:blur(6px);
-  transition:border-color .3s ease, transform .3s ease;
-}
-.entry:hover{border-color:rgba(125,211,252,.35);transform:translateY(-2px)}
-.entry .when{font-family:var(--mono);font-size:11.5px;color:var(--faint);line-height:1.9;padding-top:4px}
-.entry .when b{display:block;font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--aur-a);letter-spacing:0}
-.entry h3{font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px;color:var(--ink)}
-.entry h3 .role{
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;font-weight:500;
-  color:#062A24;background:linear-gradient(90deg,var(--aur-c),#8BF5DF);
-  border-radius:4px;padding:3px 8px;vertical-align:3px;margin-left:10px;
-}
-.entry .desc{color:var(--sub);font-size:15px;margin-bottom:8px}
-.entry ul{list-style:none;margin-top:12px}
-.entry ul li{position:relative;padding-left:17px;color:var(--sub);font-size:14px;margin-bottom:7px;line-height:1.7}
-.entry ul li::before{content:"";position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:rgba(125,211,252,.5)}
-.metrics{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
-.metrics span{
-  font-family:var(--mono);font-size:12px;color:var(--aur-a);
-  background:rgba(125,211,252,.08);border:1px solid rgba(125,211,252,.22);
-  border-radius:6px;padding:3px 10px;
-}
-.tags{margin-top:14px;font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.02em}
-@media(max-width:640px){.entry{grid-template-columns:1fr;gap:10px;padding:24px 22px}}
+/* spec */
+.spec{display:grid;grid-template-columns:92px 1fr;gap:24px;padding:16px 0;border-top:1px solid var(--rule-2)}
+.spec:first-of-type{border-top:none;padding-top:0}
+.spec > dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--mute);padding-top:5px}
+.spec > dd p{font-size:14.5px;line-height:1.75}
+.spec > dd ul{list-style:none}
+.spec > dd li{position:relative;padding-left:16px;font-size:14.5px;line-height:1.72;margin-bottom:7px}
+.spec > dd li:last-child{margin-bottom:0}
+.spec > dd li::before{content:"";position:absolute;left:0;top:11px;width:5px;height:5px;background:var(--pine);opacity:.45}
+.spec .stack{font-family:var(--mono);font-size:12px;color:var(--body);line-height:1.85}
+.learn{background:#FAFBF9;border-left:2px solid var(--amber);padding:14px 18px}
+.learn p{font-size:14px;line-height:1.72;color:var(--body)}
+@media(max-width:640px){.card{padding:24px 22px}.spec{grid-template-columns:1fr;gap:8px}.spec > dt{padding-top:0}}
 
-/* small project grid */
-.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.mini{
-  padding:24px 26px;border-radius:14px;background:var(--glass);
-  border:1px solid var(--glass-line);transition:border-color .3s ease,transform .3s ease;
-}
-.mini:hover{border-color:rgba(167,139,250,.35);transform:translateY(-2px)}
-.mini .m-cap{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--faint);margin-bottom:8px}
-.mini h4{font-size:15.5px;font-weight:600;margin-bottom:6px}
-.mini p{font-size:13.5px;color:var(--sub);line-height:1.7}
-.mini .tags{margin-top:10px}
-@media(max-width:640px){.mini-grid{grid-template-columns:1fr}}
+/* compact metrics */
+.deltas{display:flex;flex-wrap:wrap;gap:8px}
+.deltas span{font-family:var(--mono);font-size:11.5px;border:1px solid var(--rule);background:#FAFBF9;padding:7px 12px;color:var(--mute);letter-spacing:.02em}
+.deltas i{font-style:normal;color:var(--body)}
+.deltas b{color:var(--pine);font-weight:500}
 
-/* pubs */
-.pub{padding:20px 0;border-top:1px solid var(--line)}
-.pub:first-of-type{border-top:none;padding-top:0}
-.pub .type{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--faint);margin-bottom:6px}
-.pub .type em{font-style:normal;color:var(--aur-b)}
-.pub h4{font-size:15px;font-weight:600;line-height:1.55;margin-bottom:4px;color:var(--ink)}
-.pub p{font-size:13.5px;color:var(--sub)}
+/* diagram */
+.diagram{margin:0}
+.diagram img{width:70%;height:auto;display:block}
+.diagram.narrow img{max-width:660px}
+.diagram figcaption{margin-top:14px;padding-top:12px;border-top:1px solid var(--rule-2);font-family:var(--mono);font-size:10.5px;color:var(--mute);line-height:1.7}
 
-/* skills */
-.skill{display:grid;grid-template-columns:158px 1fr;gap:30px;padding:16px 0;border-top:1px solid var(--line);align-items:baseline}
-.skill:first-of-type{border-top:none;padding-top:0}
-.skill .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--aur-c)}
-.skill .v{font-size:14.5px;color:var(--sub)}
-@media(max-width:560px){.skill{grid-template-columns:1fr;gap:4px}}
+/* data 3-up */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.three article{background:var(--card);padding:26px 24px;display:flex;flex-direction:column}
+.three .dom{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--mute);margin-bottom:10px}
+.three h4{font-family:var(--disp);font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.01em;margin-bottom:12px;line-height:1.4}
+.three .brief{font-size:13.5px;line-height:1.72;color:var(--ink);padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--rule-2)}
+.three .txt{font-size:13.5px;line-height:1.7;flex:1}
+.three .num{margin-top:16px;font-family:var(--disp);font-size:21px;font-weight:700;color:var(--pine);letter-spacing:-.02em;line-height:1.2}
+.three .num small{display:block;font-family:var(--mono);font-size:10px;font-weight:400;color:var(--mute);letter-spacing:.08em;margin-top:5px;line-height:1.5}
+.three .st{margin-top:16px;padding-top:12px;border-top:1px solid var(--rule-2);font-family:var(--mono);font-size:10.5px;color:var(--mute);line-height:1.75}
+@media(max-width:780px){.three{grid-template-columns:1fr}}
+
+/* pub rows */
+.rrow{display:grid;grid-template-columns:158px 1fr;gap:28px;padding:20px 0;border-top:1px solid var(--rule-2)}
+.rrow:first-of-type{border-top:none;padding-top:0}
+.rrow .meta{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;color:var(--mute);line-height:1.85;padding-top:3px}
+.rrow .meta em{font-style:normal;color:var(--pine)}
+.rrow h4{font-size:15px;font-weight:600;color:var(--ink);line-height:1.55;margin-bottom:5px}
+.rrow .txt{font-size:13.5px;line-height:1.7}
+.rrow .id{font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:5px}
+@media(max-width:640px){.rrow{grid-template-columns:1fr;gap:6px}}
+
+/* credentials */
+.cr{display:grid;grid-template-columns:130px 1fr;gap:28px;padding:16px 0;border-top:1px solid var(--rule);align-items:baseline}
+.cr:first-of-type{border-top:none;padding-top:0}
+.cr dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--pine)}
+.cr dd{font-size:14.5px;color:var(--body);line-height:1.85}
+.cr dd .sm{font-family:var(--mono);font-size:11px;color:var(--mute)}
+@media(max-width:560px){.cr{grid-template-columns:1fr;gap:4px}}
 
 /* footer */
-footer{border-top:1px solid var(--line);padding:80px 0 100px;position:relative}
-footer h2{font-family:var(--disp);font-size:23px;font-weight:600;margin-bottom:16px}
-footer p{color:var(--sub);font-size:15px;max-width:560px}
-footer .links{margin-top:28px;font-family:var(--mono);font-size:13.5px;display:flex;flex-wrap:wrap;gap:10px 36px}
-footer .note{margin-top:60px;font-size:12px;color:var(--faint)}
+.foot{padding:66px 0 84px;border-bottom:none}
+.foot h2{font-family:var(--disp);font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-.02em;margin-bottom:12px}
+.foot p{max-width:600px;font-size:15px}
+.foot .ct{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px 36px;font-family:var(--mono);font-size:13px}
+.foot .ct b{font-weight:400;color:var(--mute);margin-right:10px;letter-spacing:.08em;font-size:11px}
+.foot .note{margin-top:52px;font-size:12px;color:var(--mute)}
 
-/* reveal */
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
-.reveal.on{opacity:1;transform:none}
+.rv{opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s ease}
+.rv.on{opacity:1;transform:none}
 </style>
 </head>
 <body>
 
-<canvas id="stars" aria-hidden="true"></canvas>
-
-<header>
-  <div class="wrap nav">
-    <a class="logo" href="#top">BONA<i>*</i>KIM</a>
-    <ul>
-      <li><a href="#exp">경력</a></li>
-      <li><a href="#proj">프로젝트</a></li>
-      <li><a href="#research">연구</a></li>
-      <li><a href="#skills">기술</a></li>
-      <li><a href="#contact">연락처</a></li>
+<nav class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#top">김보나</a>
+    <ul class="menu">
+      <li><a href="#work">AI 프로젝트</a></li>
+      <li><a href="#data">데이터 분석</a></li>
+      <li><a href="#pub">논문 &amp; 특허</a></li>
+      <li><a href="#cred">자격/어학/수상</a></li>
     </ul>
   </div>
-</header>
+  <div id="prog"></div>
+</nav>
 
 <main id="top">
 
-<!-- ================= hero ================= -->
-<div class="wrap hero">
-  <div class="planet-wrap" aria-hidden="true">
-    <div class="orbit"></div>
-    <div class="orbit o2"></div>
-    <div class="planet"></div>
-  </div>
-  <p class="hello">AI ENGINEER · PORTFOLIO</p>
-  <h1>안녕하세요, AI 엔지니어 보나입니다.<br>
-  모델을 <span class="grad">실제로 움직이는 서비스</span>로 만듭니다.</h1>
+<header class="wrap hero">
+  <p class="eyebrow">AI ENGINEER</p>
+  <h1>데이터에서 답을 찾는<br><em>AI 엔지니어 김보나</em>입니다.</h1>
   <p class="lede">
-    생성형 모델을 파인튜닝하고, 학습 환경을 구축하고, 서비스로 배포해 운영해 왔습니다.
-    좋은 모델을 만드는 것만큼, 그 모델이 실제 환경에서 안정적으로 돌아가게 하는 일을 좋아합니다.
-    대학원에서는 생성 모델의 데이터 유출 문제를 연구하며 AI를 믿고 쓸 수 있게 만드는 방법을 고민했습니다.
+    AI가 동작하는 시스템을 만드는 데 강점이 있습니다. 데이터 수집부터 모델 개발, Agent 파이프라인 설계, 서비스 배포까지 직접 수행했습니다.
   </p>
-  <div class="facts">
-    <div><b>AI 융합 석사</b><span>DEGREE</span></div>
-    <div><b>특허 2건 출원</b><span>국내 + PCT</span></div>
-    <div><b>IEEE 저널 투고</b><span>1저자 · TETC</span></div>
-    <div><b>Clarity 2025 6위</b><span>국제 챌린지</span></div>
+  <div class="proof">
+    <div><b>AI 시스템 설계</b><span>Agent · RAG · Workflow</span></div>
+    <div><b>멀티모달 AI</b><span>Vision · Speech · LLM</span></div>
+    <div><b>서비스 개발</b><span>FastAPI · React · Docker · AWS</span></div>
+    <div><b>Research</b><span>논문 4편 · 특허출원 2건</span></div>
   </div>
-</div>
+</header>
 
-<!-- ================= pipeline ================= -->
-<div class="wrap pipeline reveal">
-  <p class="cap">WHAT I DO</p>
-  <div class="p-track">
-    <div class="p-stage">
-      <div class="dot"></div>
-      <h3>DATA</h3>
-      <p>제조·고객 데이터 분석, 정제와 검증, 파생변수 설계</p>
-    </div>
-    <div class="p-stage">
-      <div class="dot"></div>
-      <h3>TRAIN</h3>
-      <p>Stable Diffusion·LTX-Video LoRA 파인튜닝</p>
-    </div>
-    <div class="p-stage">
-      <div class="dot"></div>
-      <h3>DEPLOY</h3>
-      <p>Docker·AWS 환경 구성, FastAPI·React 서비스 배포</p>
-    </div>
-    <div class="p-stage">
-      <div class="dot"></div>
-      <h3>OPERATE</h3>
-      <p>모니터링·알람·로그, LLM 기반 자동 품질 검증</p>
-    </div>
-  </div>
-</div>
-
-<!-- ================= experience ================= -->
-<section id="exp">
+<!-- AI PROJECTS -->
+<section class="sec" id="work">
   <div class="wrap">
-    <div class="sec-head"><span class="label">EXPERIENCE</span><h2>경력</h2></div>
-
-    <div class="entry reveal">
-      <div class="when"><b>도스트11</b>2025.09 – 2025.12<br>한국전파진흥협회</div>
-      <div>
-        <h3>생성형 이미지·비디오 모델 파인튜닝 및 최적화</h3>
-        <p class="desc">한국어와 한국 문화 이해도가 낮은 생성 모델의 성능을 끌어올리는 프로젝트였습니다. 비용 대비 성능을 따져 이미지·비디오 모델을 선정하고 파인튜닝했습니다.</p>
-        <ul>
-          <li>한국 문화 데이터셋 정제·구조화, 한국어 텍스트 인코더 적용 및 LoRA 파인튜닝</li>
-          <li>LLM 기반 프롬프트 엔지니어링으로 생성 품질 최적화</li>
-          <li>Docker·AWS 기반 학습/배포 환경을 구성해 실험 재현성 확보</li>
-        </ul>
-        <div class="metrics"><span>CLIPScore 0.31 → 0.47</span><span>FID −17%</span><span>FVD −9%</span></div>
-        <p class="tags">Python · PyTorch · LoRA · Docker · AWS</p>
-      </div>
+    <div class="head rv">
+      <span class="tag">AI PROJECTS</span>
+      <h2>AI 프로젝트</h2>
     </div>
 
-    <div class="entry reveal">
-      <div class="when"><b>CNSI</b>2022.10 – 2023.07</div>
-      <div>
-        <h3>AI 영상 분석 웹 플랫폼 개발·배포·운영</h3>
-        <p class="desc">드론 영상 기반 수심 측정 자동화 플랫폼과 실시간 AI 영상 분석 관제 플랫폼, 두 개의 서비스를 개발부터 배포까지 맡았습니다.</p>
-        <ul>
-          <li>FastAPI·React 기반 웹 시스템 구현, AI 모델 결과의 실시간 API 연동 구조 설계</li>
-          <li>사용자 인증·권한 관리, 알람·이벤트·로그·백업 기능 개발</li>
-          <li>수작업 측정 프로세스를 웹 기반 자동화로 전환, IoT 전시회 현장 시연으로 운영 안정성 검증</li>
-        </ul>
-        <p class="tags">Python · FastAPI · React · JavaScript · Docker</p>
-      </div>
+    <div class="filter rv" role="group" aria-label="주요 기술 필터">
+      <button class="chip" data-f="all" aria-pressed="true">전체</button>
+      <button class="chip" data-f="agent" aria-pressed="false">AI 시스템</button>
+      <button class="chip" data-f="vision" aria-pressed="false">AI 서비스</button>
+      <button class="chip" data-f="diffusion" aria-pressed="false">생성형 AI</button>
+      <button class="chip" data-f="asr" aria-pressed="false">음성 AI</button>
+      <button class="chip" data-f="tts" aria-pressed="false">AI 보안</button>
+    </div>
+
+    <!-- 1. SkillX -->
+    <article class="card rv" data-f="agent">
+      <header>
+        <div>
+          <h3 class="ttl">SkillX : 산업 현장 암묵지 DB 구축 및 검증 프레임워크</h3>
+          <p class="org">포스코 인재창조원 · 포항공과대학교 인공지능연구원</p>
+          <div class="badges">
+            <span class="key">TEAM LEADER</span>
+            <span>AGENT</span><span>RAG</span><span>VLM</span><span>YOLO</span><span>WHISPER</span>
+          </div>
+        </div>
+        <span class="yr">2026.05 – 07</span>
+      </header>
+
+      <dl>
+        <div class="spec">
+          <dt>PROBLEM</dt>
+          <dd><p>숙련 작업자의 작업 노하우는 문서로 남지 않고 개인의 경험에만 축적됩니다. 스마트글래스로 현장 영상·음성을 확보해도 작업 순서와 의도를 사람이 일일이 확인해 정리해야 했기 때문에, 인력이 교체되면 해당 지식이 그대로 유실되는 구조였습니다.</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>APPROACH</dt>
+          <dd>
+            <figure class="diagram">
+  <img src="img/skillx.png" style="display:block; margin:0 auto;">
+  <figcaption>수집 → 검증 → 활용 3단계 파이프라인. 자동 검증과 전문가 검증을 모두 통과한 결과만 Vector DB에 적재하고, 현장에서는 AI Glass 음성 질의로 해당 지식을 조회합니다.</figcaption>
+</figure>
+          </dd>
+        </div>
+
+        <div class="spec">
+          <dt>RESULT</dt>
+          <dd><p>기록되지 않던 현장 작업을 검증된 지식 데이터로 축적하고, 신입 작업자가 AI Glass에 음성으로 질의하면 해당 지식을 즉시 조회하는 단계까지 연결했습니다. 팀 리더로 파이프라인 전체 설계와 역할 분담을 담당했습니다.</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>STACK</dt>
+          <dd><p class="stack">Python · PyTorch · Qwen2.5-VL · YOLO · Whisper · LangChain · RAG · Vector DB · OpenCV · MediaPipe · Hugging Face Transformers</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>LEARNED</dt>
+          <dd><div class="learn"><p>개별 모델의 성능보다 단계 간 연결에서 문제가 더 많이 발생했습니다. 각 단계가 실패했을 때 무엇을 자동으로 걸러내고 무엇을 전문가 검증으로 넘길지 미리 정의하는 것이 Agent 설계의 핵심이었습니다.</p></div></dd>
+        </div>
+      </dl>
+    </article>
+
+    <!-- 2. CNSI -->
+    <article class="card rv" data-f="vision">
+      <header>
+        <div>
+          <h3 class="ttl">드론 영상 기반 흘수 측정 & AI 영상 분석 웹 플랫폼</h3>
+          <p class="org">한화오션</p>
+          <div class="badges">
+            <span>COMPUTER VISION</span><span>FASTAPI</span><span>REACT</span><span>DOCKER</span>
+          </div>
+        </div>
+        <span class="yr">2022.10 – 2023.07</span>
+      </header>
+
+      <dl>
+        <div class="spec">
+          <dt>PROBLEM</dt>
+          <dd><p>선박 흘수(Draft) 측정은 작업자가 현장에서 육안으로 읽고 기록하는 방식이라 시간이 오래 걸리고 측정자마다 값이 달랐습니다. 드론을 도입해도 촬영·분석·기록 과정이 분리돼 있어, 한 화면에서 관제하고 결과를 저장할 수단이 없었습니다.</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>APPROACH</dt>
+          <dd>
+            <figure class="diagram">
+  
+  <img src="img/dsme.png" style="display:block; margin:0 auto;">
+  <figcaption>드론 촬영 → LTE 송출 → 멀티 스트리밍 서버에서 라이브 관제와 Draft 측정으로 분기. 두 경로 모두 결과와 메타데이터를 저장해 사후 검증이 가능하도록 설계했습니다.</figcaption>
+</figure>
+            <ul style="margin-top:14px">
+              <li>FastAPI·React로 AI 분석 결과를 실시간 반영하는 웹 시스템 구현, 모델 결과 API 연동 구조 설계</li>
+              <li>사용자 인증·권한 관리, 알람·이벤트(문자/이메일)·로그·백업 기능 구현</li>
+            </ul>
+          </dd>
+        </div>
+
+        <div class="spec">
+          <dt>RESULT</dt>
+          <dd><p>수작업 측정 프로세스를 웹 기반 자동화 구조로 전환해 서비스 배포를 완료했고, 실시간 관제 플랫폼은 IoT 전시회 현장 시연으로 운영 안정성을 검증했습니다.</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>STACK</dt>
+          <dd><p class="stack">Python · FastAPI · React · JavaScript · Docker</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>LEARNED</dt>
+          <dd><div class="learn"><p>AI 모델을 개발하는 것보다 이를 실제 업무에 활용할 수 있는 서비스로 구현하는 과정이 더 중요하다는 점을 배웠습니다. 모델과 웹 서비스를 연동하고 데이터와 사용자 흐름을 함께 설계하면서, AI 서비스 개발은 정확도뿐 아니라 사용성과 운영까지 고려해야 한다는 것을 경험했습니다.</p></div></dd>
+        </div>
+      </dl>
+    </article>
+
+    <!-- 3. DurMI -->
+    <article class="card rv" data-f="tts">
+      <header>
+        <div>
+          <h3 class="ttl">DurMI : 음소 duration 기반 TTS 학습 데이터 판별</h3>
+          <p class="org">한국연구재단</p>
+          <div class="badges">
+            <span class="key">특허 2건 출원</span>
+            <span>TTS</span><span>DIFFUSION</span><span>PYTORCH</span><span>DIFFERENTIAL PRIVACY</span>
+          </div>
+        </div>
+        <span class="yr">2024.03 – 2025.12</span>
+      </header>
+
+      <dl>
+        <div class="spec">
+          <dt>PROBLEM</dt>
+          <dd><p>음성 합성 모델은 학습에 사용한 화자의 목소리를 그대로 재현할 수 있어 개인정보 유출 문제로 이어집니다. 기존 판별 방법은 특정 아키텍처에 종속적이었고, 디코더의 디노이징 과정을 전부 수행해야 해서 추론 비용이 컸습니다.</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>APPROACH</dt>
+          <dd>
+            <figure class="diagram narrow">
+  
+  <img src="img/durmi.png" style="display:block; margin:0 auto;">
+  <figcaption>디코더의 디노이징 과정을 생략하고, 인코더의 예측 duration과 얼라이너의 참조 duration만 비교하는 구조입니다. 이 설계 변경으로 추론 속도를 약 100배 단축했습니다.</figcaption>
+</figure>
+            <ul style="margin-top:14px">
+              <li>Diffusion·Transformer·Flow-matching TTS에 공통으로 존재하는 음소 duration을 멤버십 신호로 활용해 아키텍처 비종속 방법 설계</li>
+              <li>LLM 대상으로는 데이터 추출과 멤버십 추론을 2단계로 통합(TDE-MIA), logits 없이 토큰 확률 패턴만으로 동작하는 평가 기법 구현</li>
+              <li>Differential Privacy 기반 방어 기법을 적용해 대응 가능성까지 정량 분석</li>
+            </ul>
+          </dd>
+        </div>
+
+        <div class="spec">
+          <dt>RESULT</dt>
+          <dd>
+            <div class="deltas">
+              <span><i>추론 속도</i> <b>약 100배 단축</b></span>
+              <span><i>판별 정확도</i> <b>평균 +10%</b></span>
+              <span><i>특허</i> <b>국내 1 · PCT 1 출원</b></span>
+              <span><i>논문</i> <b>IEEE TETC · TIFS 투고</b></span>
+            </div>
+          </dd>
+        </div>
+
+        <div class="spec">
+          <dt>STACK</dt>
+          <dd><p class="stack">Python · PyTorch · Librosa · torchaudio · Llama · Pythia · MFCC / Mel Spectrogram · Differential Privacy</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>LEARNED</dt>
+          <dd><div class="learn"><p>속도 개선은 새로운 모델을 설계해서가 아니라, 판별에 필요한 신호가 이미 인코더 단계에 존재한다는 점을 확인한 데서 나왔습니다. 모델 내부 구조를 끝까지 확인하면 더 낮은 비용으로 문제를 정의할 수 있다는 점을 배웠습니다.</p></div></dd>
+        </div>
+      </dl>
+    </article>
+
+    <!-- 4. 도스트11 -->
+    <article class="card rv" data-f="diffusion">
+      <header>
+        <div>
+          <h3 class="ttl">생성형 이미지 · 비디오 모델 파인튜닝 및 최적화</h3>
+          <p class="org">한국전파진흥협회</p>
+          <div class="badges">
+            <span>STABLE DIFFUSION</span><span>LTX-VIDEO</span><span>LORA</span><span>DOCKER</span><span>AWS</span>
+          </div>
+        </div>
+        <span class="yr">2025.09 – 12</span>
+      </header>
+
+      <dl>
+        <div class="spec">
+          <dt>PROBLEM</dt>
+          <dd><p>공개 생성 모델은 한국어 프롬프트와 한국 문화 맥락에 대한 이해도가 낮아 의도와 다른 결과를 출력했습니다. 제한된 예산과 GPU 환경 안에서 생성 품질을 확보해야 했습니다.</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>APPROACH</dt>
+          <dd>
+            <ul>
+              <li>비용 대비 성능을 비교해 이미지는 Stable Diffusion, 비디오는 LTX-Video를 선정</li>
+              <li>한국 문화 데이터셋을 정제·구조화하고 한국어 텍스트 인코더를 적용한 뒤 LoRA 파인튜닝 수행</li>
+              <li>LLM 기반 프롬프트 엔지니어링을 적용해 생성 품질을 추가 최적화</li>
+              <li>Docker·AWS로 학습·배포 환경을 구성해 실험 재현성과 운영 효율성 확보</li>
+            </ul>
+          </dd>
+        </div>
+
+        <div class="spec">
+          <dt>RESULT</dt>
+          <dd>
+            <div class="deltas">
+              <span><i>이미지 CLIPScore</i> 0.31 → <b>0.47</b></span>
+              <span><i>이미지 FID</i> 30.0 → <b>24.9</b></span>
+              <span><i>비디오 CLIPScore</i> 0.42 → <b>0.54</b></span>
+              <span><i>비디오 FVD</i> 220 → <b>200</b></span>
+            </div>
+          </dd>
+        </div>
+
+        <div class="spec">
+          <dt>STACK</dt>
+          <dd><p class="stack">Python · PyTorch · LoRA · Stable Diffusion · LTX-Video · Docker · AWS</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>LEARNED</dt>
+          <dd><div class="learn"><p>동일한 모델에서도 데이터 정제·인코딩 방식에 따라 지표 차이가 크게 벌어졌습니다. 아키텍처 선택만큼 데이터 품질이 성능을 좌우한다는 점을 수치로 확인했고, 이 경험이 이후 SkillX의 데이터 파이프라인 설계로 이어졌습니다.</p></div></dd>
+        </div>
+      </dl>
+    </article>
+
+    <!-- 5. Clarity -->
+    <article class="card rv" data-f="asr">
+      <header>
+        <div>
+          <h3 class="ttl">보청기 환경 음성 명료도 예측 모델 : Clarity Challenge (CPC3)</h3>
+          <p class="org">The 6th Clarity Workshop 2025</p>
+          <div class="badges">
+            <span>WHISPER</span><span>ASR</span><span>CNN-TRANSFORMER</span><span>TORCHAUDIO</span>
+          </div>
+        </div>
+        <span class="yr">2025.05 – 08</span>
+      </header>
+
+      <dl>
+        <div class="spec">
+          <dt>PROBLEM</dt>
+          <dd><p>소음 환경에서 보청기 사용자가 음성을 얼마나 인지하는지 예측하는 과제입니다. 기존 방식은 원본 음성과 보청기 출력을 비교해야 했으나 실제 환경에서는 원본을 확보할 수 없고, 범용 ASR 모델은 보청기 출력 특성과 청각장애인의 청취 특성을 반영하지 못했습니다.</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>APPROACH</dt>
+          <dd>
+            <figure class="diagram narrow">
+  
+  <img src="img/ars.png" style="display:block; margin:0 auto;">
+  <figcaption>좌·우 귀 신호를 분리해 도메인 적응한 Whisper로 각각 처리한 뒤 결합하고, 두 개의 예측 헤드를 거쳐 명료도 점수를 출력하는 구조입니다.</figcaption>
+</figure>
+          </dd>
+        </div>
+
+        <div class="spec">
+          <dt>RESULT</dt>
+          <dd><p>원본 음성 없이 보청기 출력만으로 명료도를 예측하는 모델을 구현해 전체 참가 팀 중 6위를 기록했고, 결과를 정리한 논문이 Clarity 2025 워크샵에 채택되어 발표했습니다.</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>STACK</dt>
+          <dd><p class="stack">Python · PyTorch · Whisper · CNN-Transformer · Librosa · torchaudio · MFCC / Mel Spectrogram</p></dd>
+        </div>
+
+        <div class="spec">
+          <dt>LEARNED</dt>
+          <dd><div class="learn"><p>규모가 큰 사전학습 모델을 그대로 사용하는 것보다, 실제 사용 환경 데이터로 도메인 적응을 수행한 쪽이 성능 차이를 만들었습니다. 원본 음성을 확보할 수 없다는 제약을 먼저 정의하고 그에 맞춰 설계를 시작하는 순서를 배웠습니다.</p></div></dd>
+        </div>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<!-- DATA -->
+<section class="sec" id="data">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="tag">DATA ANALYSIS</span>
+      <h2>데이터 분석 프로젝트</h2>
+      <p>실제 기업 데이터를 대상으로 문제를 정의하고, 통계 검정과 머신러닝 모델을 활용해 원인 변수와 개선 방향을 도출한 프로젝트입니다.</p>
+    </div>
+
+    <div class="three rv">
+      <article>
+        <p class="dom">제조 · 후판 공정</p>
+        <h4>Scale 불량 예측 및 영향 요인 분석</h4>
+        <p class="brief">후판 압연·가열 공정의 온도·시간 설비 로그를 활용해 Scale 불량 발생 여부를 예측하고, 불량을 유발하는 공정 변수를 규명한 프로젝트입니다.</p>
+        <p class="txt">IQR·도메인 기준 이상치 제거와 VIF 다중공선성 검증을 거쳐 파생변수(Temp_Diff_Rolling)를 설계하고, 7개 모델을 비교해 Gradient Boosting을 채택했습니다. Feature Importance 분석으로 Rolling·Furnace Soak Temperature를 핵심 인자로 도출하고 공정 개선안을 제안했습니다.</p>
+        <p class="num">7개 모델 비교<small>DT · RF · GBM · XGB · LGBM · KNN · MLP</small></p>
+        <p class="st">Scikit-learn · XGBoost · LightGBM<br>VIF Analysis · Feature Importance</p>
+      </article>
+
+      <article>
+        <p class="dom">제조 · 스테인리스강</p>
+        <h4>STS304 M급 불량 원인 분석 및 공정 최적화</h4>
+        <p class="brief">스테인리스강(STS304) 생산 이력 데이터 23,632건을 활용해 M급 불량의 원인 변수를 규명하고 공정 관리 기준을 수립한 프로젝트입니다.</p>
+        <p class="txt">Chi-Square·t-Test·ANOVA·Mann-Whitney U 등 통계 검정과 KDE·Box Plot 분포 분석으로 후보 변수를 선별하고, 모델 비교를 거쳐 Random Forest 기반으로 Vital Few를 도출했습니다. 이를 바탕으로 공정 관리 기준과 개선안을 수립했습니다.</p>
+        <p class="num">23,632건<small>분석 데이터</small></p>
+        <p class="st">Scikit-learn · XGBoost / LightGBM<br>통계 검정 · KDE / Box Plot</p>
+      </article>
+
+      <article>
+        <p class="dom">리테일 · 중형마트</p>
+        <h4>고객 세분화 기반 매출 증대 전략</h4>
+        <p class="brief">중형마트 회원 11,555명의 영수증 단위 구매 데이터 294,645건을 활용해 이탈 고객을 예측하고, 고객 세분화 기반 매출 증대 전략을 수립한 프로젝트입니다.</p>
+        <p class="txt">거래 데이터로 KPI(방문 빈도·이탈률·친환경 매출 비중)를 정의하고 가설 검정을 수행했습니다. Random Forest 이탈 예측 모델을 구축한 뒤 RFM 등급 체계를 재설계해 CRM·마케팅 전략과 매출 10% 증대 시나리오를 도출했습니다.</p>
+        <p class="num">AUC 0.9339<small>이탈 예측 · RANDOM FOREST</small></p>
+        <p class="st">SQL · Scikit-learn<br>RFM · K-Means · Apriori</p>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ================= projects ================= -->
-<section id="proj">
+<!-- PUB -->
+<section class="sec" id="pub">
   <div class="wrap">
-    <div class="sec-head"><span class="label">PROJECTS</span><h2>프로젝트</h2></div>
-
-    <div class="entry reveal">
-      <div class="when"><b>포스코 AI·BigData 아카데미</b>2026.05 – 2026.07</div>
-      <div>
-        <h3>산업 현장 암묵지 DB 구축 및 검증 프레임워크<span class="role">TEAM LEADER</span></h3>
-        <p class="desc">숙련자의 노하우는 대부분 기록되지 않은 채 사라집니다. 스마트 글래스 영상·음성에서 이 암묵지를 추출하고 검증해 검색 가능한 지식으로 만드는 멀티모달 Agent AI 파이프라인을 팀 리더로 설계했습니다.</p>
-        <ul>
-          <li>VLM(Qwen2.5-VL) 행동 인식, YOLO 객체 검출, Whisper STT를 결합한 멀티모달 분석</li>
-          <li>LangGraph 조건 분기 기반 자동 품질 검증 — 규칙 필터와 LLM Judge를 비용순으로 배치해 처리 비용 절감</li>
-          <li>검증을 통과한 데이터를 Qdrant Vector DB에 적재, RAG 기반 음성 질의응답 시스템 구축</li>
-        </ul>
-        <p class="tags">LangChain · LangGraph · RAG · Qdrant · Qwen2.5-VL · YOLO · Whisper</p>
-      </div>
+    <div class="head rv">
+      <span class="tag">PUBLICATIONS &amp; PATENTS</span>
+      <h2>논문 &amp; 특허</h2>
     </div>
 
-    <div class="entry reveal">
-      <div class="when"><b>석사 연구</b>2025.06 – 2025.12<br>한국연구재단</div>
-      <div>
-        <h3>Tor 네트워크 트래픽 상관관계 분석 알고리즘 개선</h3>
-        <p class="desc">서로 다른 지점에서 관측된 트래픽이 같은 통신인지 추정하는 문제입니다. 모든 흐름 쌍을 비교하는 기존 방식의 비효율을 딥러닝 임베딩으로 풀었습니다.</p>
-        <ul>
-          <li>트래픽을 저차원 임베딩 공간으로 변환, 벡터 간 거리로 상관관계 판단</li>
-          <li>연산 복잡도를 N²에서 2N 수준으로 낮추면서 정확도 12% 개선</li>
-        </ul>
-        <div class="metrics"><span>연산 복잡도 N² → 2N</span><span>정확도 +12%</span></div>
-        <p class="tags">Python · PyTorch · Shadow Simulator</p>
-      </div>
-    </div>
-
-    <div class="entry reveal">
-      <div class="when"><b>데이터 분석</b>2026.05 – 2026.06</div>
-      <div>
-        <h3>제조 공정 불량 예측 · 고객 세분화 분석</h3>
-        <p class="desc">포스코 아카데미에서 제조와 리테일, 성격이 다른 두 도메인의 데이터를 분석했습니다.</p>
-        <ul>
-          <li>후판·스테인리스강 공정 데이터 23,000여 건 — 7개 모델 비교와 Feature Importance로 불량의 핵심 공정 변수 도출, 관리 기준 제안</li>
-          <li>마트 회원 11,555명·거래 294,645건 — 이탈 예측 모델(AUC 0.9339) 구축, RFM 등급 재설계와 매출 증대 시나리오 수립</li>
-        </ul>
-        <p class="tags">Scikit-learn · XGBoost · LightGBM · SQL · RFM · K-Means · 통계 검정</p>
-      </div>
-    </div>
-
-    <div class="mini-grid">
-      <div class="mini reveal">
-        <p class="m-cap">WEB SERVICE · 2022</p>
-        <h4>범죄 취약 지역 분석 · 안전 경로 안내</h4>
-        <p>공공데이터로 지역별 범죄 위험도를 산정해 지도에 시각화하고, 위험도를 반영한 안전 경로를 안내하는 웹 서비스를 개발했습니다.</p>
-        <p class="tags">Flask · 티맵 API · MySQL · Pandas</p>
-      </div>
-      <div class="mini reveal">
-        <p class="m-cap">MOBILE APP · 2021 – 2022</p>
-        <h4>꿀단지 — 지역 전단지 중개 플랫폼</h4>
-        <p>동네 가게의 전단지를 모바일로 옮긴 지역 기반 중개 앱을 기획부터 개발까지 진행한 학부 프로젝트입니다.</p>
-        <p class="tags">Mobile App · 기획 · 개발</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= research ================= -->
-<section id="research">
-  <div class="wrap">
-    <div class="sec-head"><span class="label">RESEARCH</span><h2>연구 · 논문 · 특허</h2></div>
-
-    <div class="entry reveal">
-      <div class="when"><b>석사 연구</b>2024.03 – 2025.12<br>한국연구재단</div>
-      <div>
-        <h3>생성 모델의 데이터 유출·암기 현상 분석</h3>
-        <p class="desc">생성 모델은 학습 데이터를 기억했다가 그대로 내놓기도 합니다. TTS·LLM·오디오 생성 모델에서 이 현상을 정량 분석하고, 탐지와 방어 기법을 설계한 것이 제 대학원 연구의 중심입니다.</p>
-        <ul>
-          <li>음소 duration 기반 TTS 멤버십 추론 — 인코더 정보만으로 추론해 약 100배 속도 향상, 정확도 평균 10% 개선</li>
-          <li>LLM 학습 데이터 추출·멤버십 추론 통합 프레임워크(TDE-MIA) — 내부 확률값 없이 API 환경에서 동작하는 평가 기법 설계</li>
-          <li>Differential Privacy 기반 방어 기법 적용·분석</li>
-        </ul>
-        <div class="metrics"><span>특허 국내 1건 + PCT 1건</span><span>IEEE TETC·TIFS 투고</span></div>
-      </div>
-    </div>
-
-    <div class="entry reveal">
-      <div class="when"><b>Publications</b></div>
-      <div>
-        <div class="pub">
-          <p class="type"><em>1저자</em> · IEEE TETC · UNDER REVIEW</p>
+    <div class="card rv">
+      <header><div><h3 class="ttl">논문</h3></div></header>
+      <div class="rrow">
+        <p class="meta"><em>1저자</em><br>IEEE TETC<br>UNDER REVIEW</p>
+        <div>
           <h4>DurMI: Duration Discrepancy as a Membership Signal in TTS Models</h4>
-          <p>아키텍처 비종속 TTS 멤버십 추론 방법론</p>
+          <p class="txt">Diffusion·Transformer·Flow-matching 등 아키텍처에 종속되지 않는 TTS 멤버십 추론 방법론</p>
         </div>
-        <div class="pub">
-          <p class="type"><em>1저자</em> · CISC-W'24</p>
+      </div>
+      <div class="rrow">
+        <p class="meta"><em>1저자</em><br>CISC-W'24</p>
+        <div>
           <h4>Mechanisms of Data Replication in Audio Generation Using Latent Diffusion Models</h4>
-          <p>오디오 생성 모델의 학습 데이터 복제 메커니즘 분석</p>
+          <p class="txt">오디오 생성 모델에서 학습 데이터가 재현되는 메커니즘 규명</p>
         </div>
-        <div class="pub">
-          <p class="type">공동저자 · IEEE TIFS · UNDER REVIEW</p>
+      </div>
+      <div class="rrow">
+        <p class="meta">공동저자<br>IEEE TIFS<br>UNDER REVIEW</p>
+        <div>
           <h4>TDE-MIA: A Two-Stage Attack for Training Data Extraction and Membership Inference in GPT Models</h4>
-          <p>GPT 계열 모델의 학습 데이터 유출 탐지 프레임워크</p>
+          <p class="txt">GPT 계열 모델의 학습 데이터 유출을 API 환경에서 탐지하는 프레임워크</p>
         </div>
-        <div class="pub">
-          <p class="type">공동저자 · Clarity 2025 · 전체 6위</p>
+      </div>
+      <div class="rrow">
+        <p class="meta">공동저자<br>Clarity 2025</p>
+        <div>
           <h4>Domain-Adapted ASR with Deep Neural Networks for Enhanced Speech Intelligibility Prediction</h4>
-          <p>Whisper 도메인 적응 기반 음성 명료도 예측</p>
+          <p class="txt">Whisper 도메인 적응 + CNN-Transformer 기반 음성 명료도 예측</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card rv">
+      <header><div><h3 class="ttl">특허 · SW 등록</h3></div></header>
+      <div class="rrow">
+        <p class="meta"><em>PCT 국제특허출원</em><br>2025.11</p>
+        <div>
+          <h4>Electronic device for performing membership inference using duration loss and method of operation thereof</h4>
+          <p class="id">PCT/KR2025/018193</p>
+        </div>
+      </div>
+      <div class="rrow">
+        <p class="meta"><em>국내특허출원</em><br>2025.07</p>
+        <div>
+          <h4>듀레이션 로스를 이용하여 멤버십 인퍼런스를 수행하는 전자 장치 및 그 동작 방법</h4>
+          <p class="id">10-2025-0100782</p>
+        </div>
+      </div>
+      <div class="rrow">
+        <p class="meta">SW 등록<br>2024.12</p>
+        <div>
+          <h4>잠재 확산 모델을 활용한 오디오 생성에서의 데이터 복제 메커니즘</h4>
+          <p class="id">C-2024-050415</p>
+        </div>
+      </div>
+      <div class="rrow">
+        <p class="meta">SW 등록<br>2021.12</p>
+        <div>
+          <h4>버스 승객 안전관리 프로그램</h4>
+          <p class="id">C-2021-059724</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= skills ================= -->
-<section id="skills">
+<!-- CRED -->
+<section class="sec" id="cred">
   <div class="wrap">
-    <div class="sec-head"><span class="label">SKILLS</span><h2>기술</h2></div>
-    <div class="reveal">
-      <div class="skill"><span class="k">LANGUAGE</span><span class="v">Python, JavaScript, SQL</span></div>
-      <div class="skill"><span class="k">ML / DL</span><span class="v">PyTorch, Scikit-learn, XGBoost, LightGBM, LoRA Fine-tuning, Hugging Face Transformers</span></div>
-      <div class="skill"><span class="k">LLM / AGENT</span><span class="v">LangChain, LangGraph, RAG, Qdrant, Prompt Engineering</span></div>
-      <div class="skill"><span class="k">VISION / SPEECH</span><span class="v">Qwen2.5-VL, YOLO, OpenCV, Whisper, Librosa, torchaudio</span></div>
-      <div class="skill"><span class="k">SERVING / INFRA</span><span class="v">FastAPI, React, Docker, AWS, Linux</span></div>
-      <div class="skill"><span class="k">ETC</span><span class="v">ADsP, OPIc IH</span></div>
-    </div>
+    <div class="head rv"><span class="tag">CREDENTIALS</span><h2>자격/어학/수상</h2></div>
+    <dl class="rv">
+      <div class="cr">
+        <dt>자격증</dt>
+        <dd>정보처리기사 <span class="sm">한국산업인력공단 · 2026.09</span><br>ADsP <span class="sm">한국데이터산업진흥원 · 2026.06</span></dd>
+      </div>
+      <div class="cr">
+        <dt>어학</dt>
+        <dd>OPIc IH (Intermediate High) <span class="sm">ACTFL · 2025.09</span></dd>
+      </div>
+      <div class="cr">
+        <dt>수상</dt>
+        <dd>
+          프로젝트 우수상 <span class="sm">포스코 청년 AI·빅데이터 아카데미 · 2026.07</span><br>
+          협력상 <span class="sm">포스코 청년 AI·빅데이터 아카데미 · 2026.07</span><br>
+          창의자율과제 우수팀 및 국제특허 출원 지원 대상 선정 <span class="sm">이화여대 AI융합혁신인재양성사업단 · 2025.10</span>
+        </dd>
+      </div>
+      <!-- <div class="cr">
+        <dt>교육 · 경험</dt>
+        <dd>
+          포스코 청년 AI·BigData 아카데미 <span class="sm">424시간 · 10주 합숙 · 2026.05 – 07</span><br>
+          대학원 조교 — 오픈SW플랫폼 · 기계학습 실습 지도 <span class="sm">2024.03 – 2026.02</span>
+        </dd>
+      </div> -->
+    </dl>
   </div>
 </section>
 
-<!-- ================= contact ================= -->
-<footer id="contact">
+<footer class="sec foot" id="contact">
   <div class="wrap">
     <h2>Contact</h2>
-    <p>여기까지 읽어주셔서 감사합니다. 궁금한 점이 있다면 편하게 연락 주세요.</p>
-    <div class="links">
-      <span>EMAIL — <a href="mailto:kimbonaw@gmail.com">kimbonaw@gmail.com</a></span>
-      <span>GITHUB — <a href="https://github.com/kimbonaw" target="_blank" rel="noopener">github.com/kimbonaw</a></span>
+    <p>포트폴리오를 읽어주셔서 감사합니다. </p>
+    <div class="ct">
+      <span><b>EMAIL</b><a href="mailto:kimbonaw@gmail.com">kimbonaw@gmail.com</a></span>
+      <span><b>GITHUB</b><a href="https://github.com/sophkim" target="_blank" rel="noopener">github.com/sophkim</a></span>
     </div>
-    <p class="note">© 2026 Bona Kim · 본 페이지의 프로젝트 내용은 공개 가능한 범위 내에서 작성되었습니다.</p>
+    <p class="note">© 2026/07/22 기준으로 작성되었습니다.</p>
   </div>
 </footer>
 
 </main>
 
 <script>
-/* ---------- twinkling starfield ---------- */
-(function(){
-  const c=document.getElementById('stars'),x=c.getContext('2d');
-  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let W,H,stars=[];
-  function resize(){
-    W=c.width=innerWidth*devicePixelRatio;
-    H=c.height=innerHeight*devicePixelRatio;
-    c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';
-    const n=Math.min(220,Math.floor(innerWidth*innerHeight/9000));
-    stars=Array.from({length:n},()=>({
-      x:Math.random()*W,y:Math.random()*H,
-      r:(Math.random()*1.3+.3)*devicePixelRatio,
-      a:Math.random()*Math.PI*2,
-      s:Math.random()*.015+.004,
-      d:Math.random()*.06+.01
-    }));
-  }
-  function draw(){
-    x.clearRect(0,0,W,H);
-    for(const st of stars){
-      st.a+=st.s; st.y+=st.d; if(st.y>H)st.y=0;
-      const tw=.35+.65*Math.abs(Math.sin(st.a));
-      x.beginPath();x.arc(st.x,st.y,st.r,0,7);
-      x.fillStyle='rgba(191,211,255,'+(tw*.9)+')';x.fill();
-    }
-    if(!reduce)requestAnimationFrame(draw);
-  }
-  addEventListener('resize',resize,{passive:true});
-  resize();draw();
-})();
+var prog=document.getElementById('prog');
+var navEl=document.querySelector('.top');
+var links=[].slice.call(document.querySelectorAll('.menu a[href^="#"]'));
+var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
 
-/* ---------- reveal on scroll ---------- */
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+function spy(){
+  var navH=navEl.offsetHeight;
+  var y=(window.scrollY||document.documentElement.scrollTop)+navH+100;
+  var cur=-1;
+  secs.forEach(function(s,i){
+    if(s && s.getBoundingClientRect().top+window.scrollY<=y) cur=i;
+  });
+  // 페이지 최하단에서는 마지막 섹션을 활성화
+  if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4) cur=secs.length-1;
+  links.forEach(function(a,i){
+    a.classList.toggle('active',i===cur);
+    if(i===cur){a.setAttribute('aria-current','true')}else{a.removeAttribute('aria-current')}
+  });
+}
+
+function onScroll(){
+  var h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+  spy();
+}
+addEventListener('scroll',onScroll,{passive:true});
+addEventListener('resize',spy,{passive:true});
+spy();
+
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})
+},{threshold:.06});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+
+var chips=document.querySelectorAll('.chip');
+var cards=document.querySelectorAll('#work .card');
+chips.forEach(function(c){
+  c.addEventListener('click',function(){
+    chips.forEach(function(x){x.setAttribute('aria-pressed','false')});
+    c.setAttribute('aria-pressed','true');
+    var f=c.dataset.f;
+    cards.forEach(function(card){
+      card.classList.toggle('hide', f!=='all' && card.dataset.f!==f);
+    });
+    spy();
+  });
+});
 </script>
 </body>
 </html>
